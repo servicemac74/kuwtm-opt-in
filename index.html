@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMS Consent &amp; Opt-In — Keeping Up With the Macs</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1f2e;
+      --ink-light: #4a5068;
+      --rule:      #d0d4e0;
+      --accent:    #1a4480;
+      --bg:        #f7f8fb;
+      --white:     #ffffff;
+      --green:     #1a6640;
+      --green-bg:  #edf7f1;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 2px solid var(--accent);
+      padding: 2rem 0;
+    }
+
+    header .inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    header .wordmark {
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    header .doc-type {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      border-left: 1px solid var(--rule);
+      padding-left: 1.25rem;
+      line-height: 1;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 3rem auto 5rem;
+      padding: 0 2rem;
+    }
+
+    h1 {
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 600;
+      font-size: 2rem;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .effective {
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    h2 {
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--accent);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      max-width: 68ch;
+      color: var(--ink);
+    }
+
+    ul {
+      margin: 0.5rem 0 1rem 1.25rem;
+      max-width: 66ch;
+    }
+
+    ul li {
+      margin-bottom: 0.4rem;
+      color: var(--ink);
+    }
+
+    .highlight-box {
+      background: var(--white);
+      border-left: 3px solid var(--accent);
+      padding: 1.1rem 1.4rem;
+      margin: 1.5rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .consent-box {
+      background: var(--green-bg);
+      border: 1.5px solid var(--green);
+      border-radius: 6px;
+      padding: 1.5rem 1.75rem;
+      margin: 2rem 0;
+    }
+
+    .consent-box h3 {
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--green);
+      margin-bottom: 0.75rem;
+    }
+
+    .consent-box p {
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .consent-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Opt-in form */
+    .form-section {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .form-section h3 {
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .field-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-light);
+      margin-bottom: 0.35rem;
+    }
+
+    .field-group input[type="text"],
+    .field-group input[type="tel"],
+    .field-group input[type="email"] {
+      width: 100%;
+      max-width: 420px;
+      padding: 0.6rem 0.85rem;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    .field-group input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      border-color: var(--accent);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-top: 0.2rem;
+      accent-color: var(--accent);
+      width: 1.1rem;
+      height: 1.1rem;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .checkbox-group label {
+      font-size: 0.9rem;
+      color: var(--ink);
+      cursor: pointer;
+      line-height: 1.6;
+    }
+
+    .checkbox-group label strong {
+      color: var(--accent);
+    }
+
+    .disclosures {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    .disclosures p {
+      margin-bottom: 0.4rem;
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      max-width: none;
+    }
+
+    .disclosures p:last-child { margin-bottom: 0; }
+
+    .submit-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover {
+      background: #143a6e;
+    }
+
+    .signature-area {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .signature-area h3 {
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .sig-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 580px;
+    }
+
+    .sig-field {
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 0.25rem;
+      min-height: 2rem;
+    }
+
+    .sig-label {
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      margin-top: 0.3rem;
+    }
+
+    a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--rule);
+      padding: 1.5rem 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--ink-light);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5rem; }
+      main { margin-top: 2rem; }
+      .sig-row { grid-template-columns: 1fr; }
+      .field-group input { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <span class="wordmark">Keeping Up With the Macs</span>
+    <span class="doc-type">SMS Consent &amp; Opt-In</span>
+  </div>
+</header>
+
+<main>
+  <h1>SMS Notification Consent Form</h1>
+  <p class="effective">Document Version 1.0 &nbsp;·&nbsp; Effective September 1, 2026</p>
+
+  <p>Keeping Up With the Macs ("we," "us," or "our") sends operational SMS text message notifications to enrolled team members. This page serves as our official opt-in consent record for our internal messaging program.</p>
+
+  <p>This form must be completed by any team member who will receive SMS notifications from Keeping Up With the Macs. Completion of this form constitutes written consent to receive text messages as described below.</p>
+
+  <!-- What messages you'll receive -->
+  <h2>What Messages You Will Receive</h2>
+  <p>By opting in, you agree to receive SMS text messages from Keeping Up With the Macs that may include:</p>
+  <ul>
+    <li>Financial bill payment alerts and confirmations</li>
+    <li>Project management task reminders and status updates</li>
+    <li>Business automation and workflow notifications</li>
+    <li>Internal platform alerts relevant to your role or account</li>
+    <li>Messages may include relevant URLs and support phone numbers</li>
+  </ul>
+
+  <p>These messages are strictly operational and internal. No marketing or promotional messages will be sent through this program.</p>
+
+  <!-- Key disclosures -->
+  <h2>Important Disclosures</h2>
+
+  <div class="highlight-box">
+    <p><strong>Message frequency varies</strong> based on your account activity and operational events. You may receive multiple messages per week.</p>
+  </div>
+
+  <div class="highlight-box">
+    <p><strong>Message and data rates may apply.</strong> Standard carrier SMS and data rates may apply to all messages sent and received. Contact your wireless carrier for details.</p>
+  </div>
+
+  <div class="highlight-box">
+    <p><strong>Your mobile number will not be shared.</strong> We will not share, sell, rent, or trade your mobile phone number with any third party for marketing purposes.</p>
+  </div>
+
+  <!-- Opt-out / Help -->
+  <h2>How to Opt Out or Get Help</h2>
+  <p>You may withdraw your consent and stop receiving messages at any time:</p>
+  <ul>
+    <li>Reply <strong>STOP</strong> (or CANCEL, QUIT, OPTOUT, UNSUBSCRIBE, STOPALL, REVOKE, or END) to any message</li>
+    <li>Contact us at <a href="mailto:support@keepingupwiththemacs.com">support@keepingupwiththemacs.com</a></li>
+  </ul>
+  <p>For help, reply <strong>HELP</strong> to any message or email us at <a href="mailto:support@keepingupwiththemacs.com">support@keepingupwiththemacs.com</a>.</p>
+  <p>To re-enroll after opting out, reply <strong>START</strong>, <strong>YES</strong>, or <strong>UNSTOP</strong> to any previous message.</p>
+
+  <!-- Consent is not required -->
+  <div class="consent-box">
+    <h3>Consent is Voluntary</h3>
+    <p>You are not required to consent to receive SMS messages as a condition of employment or access to any services provided by Keeping Up With the Macs. Opting out will not affect your employment status or access to non-SMS services.</p>
+  </div>
+
+  <!-- The opt-in form -->
+  <h2>Consent Form</h2>
+  <p>Complete the fields below to enroll in the Keeping Up With the Macs SMS notification program. This record is retained by Keeping Up With the Macs as documentation of your consent.</p>
+
+  <div class="form-section">
+    <h3>Team Member Information</h3>
+
+    <div class="field-group">
+      <label for="full-name">Full Name</label>
+      <input type="text" id="full-name" name="full_name" placeholder="First and Last Name" />
+    </div>
+
+    <div class="field-group">
+      <label for="role">Role / Title</label>
+      <input type="text" id="role" name="role" placeholder="e.g. Operations Manager" />
+    </div>
+
+    <div class="field-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" />
+    </div>
+
+    <div class="field-group">
+      <label for="mobile">Mobile Phone Number (to receive SMS)</label>
+      <input type="tel" id="mobile" name="mobile" placeholder="+1 (___) ___-____" />
+    </div>
+
+    <div class="field-group">
+      <label for="carrier">Wireless Carrier (optional)</label>
+      <input type="text" id="carrier" name="carrier" placeholder="e.g. AT&T, Verizon, T-Mobile" />
+    </div>
+
+    <!-- Consent checkbox -->
+    <div class="checkbox-group">
+      <input type="checkbox" id="consent" name="consent" />
+      <label for="consent">
+        I, the undersigned, <strong>consent to receive SMS text message notifications</strong> from Keeping Up With the Macs at the mobile number provided above. I understand that message and data rates may apply, that message frequency varies, and that I may opt out at any time by replying STOP. I have read and agree to the <a href="https://servicemac74.github.io/kuwtm-pp/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://servicemac74.github.io/kuwtm-tc/" target="_blank" rel="noopener">Terms &amp; Conditions</a> of the Keeping Up With the Macs SMS program.
+      </label>
+    </div>
+
+    <!-- Required disclosures block -->
+    <div class="disclosures">
+      <p><strong>By submitting this form you acknowledge:</strong></p>
+      <p>· Keeping Up With the Macs will send operational SMS notifications to the number above.</p>
+      <p>· Message and data rates may apply. Message frequency varies.</p>
+      <p>· Your mobile number will not be sold or shared with third parties for marketing.</p>
+      <p>· Reply STOP to cancel. Reply HELP for help.</p>
+      <p>· Consent is not a condition of employment or service access.</p>
+    </div>
+
+    <button class="submit-btn" type="button">Submit Consent</button>
+  </div>
+
+  <!-- Signature area for printed/paper version -->
+  <div class="signature-area">
+    <h3>For Printed / Paper Version — Signature Block</h3>
+    <p style="font-size:0.85rem; color:var(--ink-light); margin-bottom:1.25rem;">If this form is completed on paper during onboarding, the team member must sign below. Signed copies are retained in HR onboarding records.</p>
+
+    <div class="sig-row">
+      <div>
+        <div class="sig-field"></div>
+        <div class="sig-label">Team Member Signature</div>
+      </div>
+      <div>
+        <div class="sig-field"></div>
+        <div class="sig-label">Date</div>
+      </div>
+      <div>
+        <div class="sig-field"></div>
+        <div class="sig-label">Printed Name</div>
+      </div>
+      <div>
+        <div class="sig-field"></div>
+        <div class="sig-label">Mobile Number</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Links -->
+  <h2>Related Documents</h2>
+  <ul>
+    <li><a href="https://servicemac74.github.io/kuwtm-pp/" target="_blank" rel="noopener">Privacy Policy</a></li>
+    <li><a href="https://servicemac74.github.io/kuwtm-tc/" target="_blank" rel="noopener">Terms &amp; Conditions</a></li>
+    <li><a href="mailto:support@keepingupwiththemacs.com">Contact: support@keepingupwiththemacs.com</a></li>
+  </ul>
+
+</main>
+
+<footer>
+  &copy; 2026 Keeping Up With the Macs. All rights reserved. &nbsp;·&nbsp;
+  <a href="https://servicemac74.github.io/kuwtm-pp/">Privacy Policy</a> &nbsp;·&nbsp;
+  <a href="https://servicemac74.github.io/kuwtm-tc/">Terms &amp; Conditions</a>
+</footer>
+
+</body>
+</html>
